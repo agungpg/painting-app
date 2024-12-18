@@ -1,12 +1,17 @@
 "use strict";
 var isPainting = false;
+var FillColor = "#000"
+var StrokeColor = "#000"
+const noStrokeColor = '#ffffff'
 function Circle(positionX, positionY, radius, fill, stroke, stroke_width) {
   this.positionX = positionX || 0;
   this.positionY = positionY || 0;
   this.radius = radius || 7;
   this.fill = fill || randColor();
-  this.stroke = stroke || randColor();
-  this.stroke_width = stroke_width || 2;
+  if(noStrokeColor != stroke) {
+    this.stroke = stroke || randColor();
+    this.stroke_width = stroke_width || 2;
+  }
   this.draw = function () {
     JScontentCreation.innerHTML += `<circle class="circle" onclick="Erase(this)" cx="${this.positionX}" cy="${this.positionY}" 
       r="${this.radius}" fill="${this.fill}" 
@@ -27,10 +32,12 @@ function Squere(
   this.height = height;
   this.width = width;
   this.fill = fill;
-  this.stroke = stroke;
-  this.stroke_width = strokeWidth ?? 2;
+  if(noStrokeColor != stroke) {
+    this.stroke = stroke;
+    this.stroke_width = strokeWidth ?? 2;
+  }
   this.draw = function () {
-    JScontentCreation.innerHTML += `<rect class="squere" x="${this.positionX}" y="${this.positionY}" width="${this.width}" height="${height}" fill="blue" stroke="black" stroke-width="2" />`;
+    JScontentCreation.innerHTML += `<rect class="squere" x="${this.positionX}" y="${this.positionY}" width="${this.width}" height="${height}" fill="${this.fill}" stroke="${this.stroke}" stroke-width="${this.stroke_width}" />`;
   };
 }
 
@@ -71,8 +78,8 @@ window.addEventListener(
 
     let c1 =
       Pointer == "circle"
-        ? new Circle(e.pageX, e.pageY, 4, "#000", "#000")
-        : new Squere(e.pageX, e.pageY, 8, 8, "black", "black");
+        ? new Circle(e.pageX, e.pageY, 4, FillColor, StrokeColor)
+        : new Squere(e.pageX, e.pageY, 8, 8, FillColor, StrokeColor);
     c1.draw();
   },
   false
@@ -113,3 +120,11 @@ function Erase(e) {
 document.getElementById("reset").addEventListener("click", () => {
   JScontentCreation.innerHTML = "";
 });
+
+document.getElementById("color-picker").addEventListener("change", (e)=>{
+    FillColor = e.target.value
+})
+
+document.getElementById("stroke-color-picker").addEventListener("change", (e)=>{
+    StrokeColor = e.target.value
+})
