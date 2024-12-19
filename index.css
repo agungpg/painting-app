@@ -2,17 +2,10 @@
   padding: 20px;
   gap: 20px;
   display: flex;
+  align-items: flex-start;
 }
-#squere {
-  height: 24px;
-  width: 24px;
-  background-color: black;
-  cursor: pointer;
-}
-#circle {
-  height: 24px;
-  width: 24px;
-  border-radius: 100%;
-  background-color: black;
+
+.tool-btn {
+
   cursor: pointer;
 }
